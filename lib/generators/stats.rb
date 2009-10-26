@@ -3,7 +3,7 @@ module MetricFu
   class Stats < Generator
 
     def emit
-      `rake stats > #{metric_directory + '/stats.txt'}`
+      `jruby -S rake stats > #{metric_directory + '/stats.txt'}`
     end
 
     def analyze

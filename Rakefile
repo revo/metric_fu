@@ -16,3 +16,17 @@ MetricFu::Configuration.run do |config|
 end
 
 task :default => [:"metrics:all"]
+
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name = "metric_fu"
+    gemspec.summary = "A fistful of code metrics, with awesome templates and graphs"
+    gemspec.description = "Code metrics from Flog, Flay, RCov, Saikuro, Churn, Reek, Roodi and Rails' stats task"
+    gemspec.email = "jake.scruggs@gmail.com"
+    gemspec.homepage = "http://metric-fu.rubyforge.org/"
+    gemspec.authors = ["Jake Scruggs", "Sean Soper", "Andre Arko", "Petrik de Heus", "Grant McInnes", "Nick Quaranto", "Édouard Brière"]
+  end
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end

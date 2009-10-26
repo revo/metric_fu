@@ -3,13 +3,15 @@ module MetricFu
   class Flay < Generator
 
     def self.verify_dependencies!
-      `flay --help`
-      raise 'sudo gem install flay # if you want the flay tasks' unless $?.success?
+      #`jruby -S flay --help`
+      #raise 'sudo gem install flay # if you want the flay tasks' unless $?.success?
     end
 
     def emit
+      metric_dir = MetricFu::Flay.metric_directory
       files_to_flay = MetricFu.flay[:dirs_to_flay].map{|dir| Dir[File.join(dir, "**/*.rb")] }
-      @output = `flay #{files_to_flay.join(" ")}`
+      system("flay #{files_to_flay.join(" ")} > #{metric_dir}/flay.txt")
+      File.open("#{metric_dir}/flay.txt", "r") {|io| @output = io.read}
     end
 
     def analyze

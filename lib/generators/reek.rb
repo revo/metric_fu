@@ -4,13 +4,15 @@ module MetricFu
     REEK_REGEX = /^(\S+) (.*) \((.*)\)$/
 
     def self.verify_dependencies!
-      `reek --help`
-      raise 'sudo gem install reek # if you want the reek tasks' unless $?.success?
+      #`reek --help`
+      #raise 'sudo gem install reek # if you want the reek tasks' unless $?.success?
     end
 
     def emit
+      metric_dir = MetricFu::Reek.metric_directory
       files_to_reek = MetricFu.reek[:dirs_to_reek].map{|dir| Dir[File.join(dir, "**/*.rb")] }
-      @output = `reek #{files_to_reek.join(" ")}`
+      system("reek #{files_to_reek.join(" ")} > #{metric_dir}/reek.txt")
+      File.open("#{metric_dir}/reek.txt", "r") {|io| @output = io.read}
     end
 
     def analyze

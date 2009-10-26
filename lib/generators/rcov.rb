@@ -6,14 +6,14 @@ module MetricFu
     NEW_FILE_MARKER =  ("=" * 80) + "\n"
 
     def self.verify_dependencies!
-      `rcov --help`
-      unless $?.success?
-        if RUBY_PLATFORM =~ /java/
-          raise 'running in jruby - rcov tasks not available'
-        else
-          raise 'sudo gem install rcov # if you want the rcov tasks'
-        end
-      end
+      #`rcov --help`
+      #unless $?.success?
+      #  if RUBY_PLATFORM =~ /java/
+      #    raise 'running in jruby - rcov tasks not available'
+      #  else
+      #    raise 'sudo gem install rcov # if you want the rcov tasks'
+      #  end
+      #end
     end
 
     class Line
@@ -36,7 +36,7 @@ module MetricFu
         test_files = FileList[*MetricFu.rcov[:test_files]].join(' ')
         rcov_opts = MetricFu.rcov[:rcov_opts].join(' ')
         output = ">> #{MetricFu::Rcov.metric_directory}/rcov.txt"
-        `rcov #{test_files} #{rcov_opts} #{output}`
+        system("rcov #{test_files} #{rcov_opts} #{output}")
       rescue LoadError
         if RUBY_PLATFORM =~ /java/
           puts 'running in jruby - rcov tasks not available'

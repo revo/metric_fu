@@ -6,9 +6,9 @@ module MetricFu
   # course, in order to use these metrics, their respective gems must
   # be installed on the system.
   AVAILABLE_METRICS = [:churn, :flog, :flay, :reek, 
-                       :roodi, :saikuro, :rcov]
+                       :saikuro, :rcov] # :roodi isn't jruby compatible
 
-  AVAILABLE_GRAPHS = [:flog, :flay, :reek, :roodi, :rcov]
+  AVAILABLE_GRAPHS = [] # no graphs are available because rmagick isn't jruby compatible
 
   # The @@configuration class variable holds a global type configuration
   # object for any parts of the system to use.

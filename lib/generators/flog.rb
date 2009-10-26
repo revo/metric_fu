@@ -4,8 +4,8 @@ module MetricFu
     attr_reader :pages
 
     def self.verify_dependencies!
-      `flog --help`
-      raise 'sudo gem install flog # if you want the flog tasks' unless $?.success?
+      #`jruby -S flog --help`
+      #raise 'sudo gem install flog # if you want the flog tasks' unless $?.success?
     end
 
     SCORE_FORMAT = "%0.2f"
@@ -19,7 +19,7 @@ module MetricFu
           output_dir = "#{metric_dir}/#{filename.split("/")[0..-2].join("/")}"
           mkdir_p(output_dir, :verbose => false) unless File.directory?(output_dir)
           if MetricFu::MD5Tracker.file_changed?(filename, metric_dir)
-            `flog -ad #{filename} > #{metric_dir}/#{filename.split('.')[0]}.txt`
+            system("flog -ad #{filename} > #{metric_dir}/#{filename.split('.')[0]}.txt")
           end
         end
       end
